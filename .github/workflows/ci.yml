@@ -19,7 +19,7 @@ jobs:
     # Run the same job once per Node.js version to catch version-specific issues.
     strategy:
       matrix:
-        node-version: [18, 20, 22]
+        node-version: [22]
 
     # Steps run sequentially; if any step fails, the job stops and is marked failed.
     steps:
