@@ -1,0 +1,48 @@
+# Name shown in the GitHub Actions "Actions" tab for this workflow.
+name: CI
+
+# When this workflow runs.
+on:
+  # Run on every push to main (i.e. after a PR is merged).
+  push:
+    branches: [main]
+  # Run on pull requests targeting main, so broken code is caught before merge.
+  pull_request:
+    branches: [main]
+
+jobs:
+  # A single job named "test" that lints and runs the test suite.
+  test:
+    # Use the latest Ubuntu image hosted by GitHub.
+    runs-on: ubuntu-latest
+
+    # Run the same job once per Node.js version to catch version-specific issues.
+    strategy:
+      matrix:
+        node-version: [22]
+
+    # Steps run sequentially; if any step fails, the job stops and is marked failed.
+    steps:
+      # Fetch the repository contents into the runner's workspace.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Install the requested Node.js version and enable npm dependency caching.
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      # Install dependencies from the lockfile for reproducible builds.
+      # Fall back to `npm install` if no lockfile exists yet.
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      # Run ESLint to catch code-quality problems.
+      - name: Lint
+        run: npm run lint
+
+      # Run the test suite using Node's built-in test runner (`node --test`).
+      - name: Test
+        run: npm test
