@@ -10,6 +10,7 @@ export function sum(a, b) {
     return a + b;
 }
 
+// can be named minus/diff
 export function sub(a, b) {
     return a - b;
 }
