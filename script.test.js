@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import { min, max } from './script.js';
+import { min, max, sum } from './script.js';
 
 test('min returns the smaller of two positive numbers', () => {
     assert.strictEqual(min(5, 3), 3);
@@ -32,4 +32,20 @@ test('max returns equal value when numbers are equal', () => {
 
 test('max handles mixed-sign numbers', () => {
     assert.strictEqual(max(-1, 1), 1);
+});
+
+test('sum adds two positive numbers', () => {
+    assert.strictEqual(sum(5, 3), 8);
+});
+
+test('sum handles negative numbers', () => {
+    assert.strictEqual(sum(-2, -8), -10);
+});
+
+test('sum handles mixed-sign numbers', () => {
+    assert.strictEqual(sum(-1, 1), 0);
+});
+
+test('sum with zero returns the other number', () => {
+    assert.strictEqual(sum(0, 7), 7);
 });
