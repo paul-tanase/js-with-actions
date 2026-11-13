@@ -5,3 +5,7 @@ export function min(a, b) {
 export function max(a, b) {
     return Math.max(a,b);
 }
+
+export function sum(a, b) {
+    return a + b;
+}
