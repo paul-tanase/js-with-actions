@@ -1,3 +1,4 @@
+// Basic arithmetic helpers for two values.
 export function min(a, b) {
     return Math.min(a,b);
 }
